@@ -16,12 +16,15 @@ class FrameTimer:
 		else:
 			return 0.01
 
-	def tick(self):
+	def tick(self, fps=None):
+		if fps is None:
+			fps = self.target_fps
+
 		if self.last_tick_time is None:
 			self.last_tick_time = self.now()
 			return 0.0
 
-		self.accurate_sleep_until(self.last_tick_time + 1. / self.target_fps)
+		self.accurate_sleep_until(self.last_tick_time + 1. / fps)
 
 		now = self.now()
 		dt = now - self.last_tick_time
