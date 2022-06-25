@@ -8,7 +8,6 @@ class FrameTimer:
 			self.spin_time = self._guess_spin_time()
 		else:
 			self.spin_time = spin_time
-		self.time_between_frames = 1. / self.target_fps
 		self.last_tick_time = None
 
 	def _guess_spin_time(self):
@@ -22,7 +21,7 @@ class FrameTimer:
 			self.last_tick_time = self.now()
 			return 0.0
 
-		self.accurate_sleep_until(self.last_tick_time + self.time_between_frames)
+		self.accurate_sleep_until(self.last_tick_time + 1. / self.target_fps)
 
 		now = self.now()
 		dt = now - self.last_tick_time
